@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perception Lab — Admin</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  body { background: var(--grey); }
+  .admin { max-width: 1100px; margin: 0 auto; padding: 2.5rem 3vw 5rem; }
+  .admin-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem; border-bottom: 3px solid var(--black); padding-bottom: 1rem; margin-bottom: 2rem; }
+  .admin-head h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.02em; }
+  .admin-head a { color: var(--black); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; }
+  .admin-note { background: var(--yellow); border: 1px solid var(--black); padding: 1rem 1.2rem; font-size: 0.78rem; font-weight: 600; line-height: 1.6; margin-bottom: 2rem; }
+  .admin-tabs { display: flex; flex-wrap: wrap; border: 1px solid var(--black); margin-bottom: 2rem; }
+  .admin-tabs button { flex: 1; min-width: 130px; font-family: var(--font-sans); font-weight: 800; font-size: 0.65rem; letter-spacing: 0.1em; padding: 0.9rem 0.5rem; background: transparent; border: none; border-right: 1px solid var(--black); cursor: pointer; }
+  .admin-tabs button:last-child { border-right: none; }
+  .admin-tabs button.is-active { background: var(--black); color: var(--lime); }
+  .admin-panel { border: 1px solid var(--black); background: var(--white); padding: 2rem; display: none; }
+  .admin-panel.is-active { display: block; }
+  .admin-panel h2 { font-size: 1.2rem; font-weight: 900; margin-bottom: 1.4rem; }
+  .a-field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+  .a-field label { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.12em; }
+  .a-field input, .a-field textarea, .a-field select { font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; padding: 0.6rem 0.7rem; border: 1px solid var(--black); }
+  .a-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
+  .a-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.6rem; border-top: 1px solid var(--black); padding-top: 1.4rem; }
+  .a-msg { font-size: 0.75rem; font-weight: 700; margin-top: 0.8rem; }
+  .a-msg.ok { color: #1a7f37; }
+  .a-msg.err { color: #b00020; }
+  .preset-editor { border: 1px solid var(--black); padding: 1.2rem; margin-bottom: 1.2rem; }
+  .preset-editor h3 { font-size: 0.8rem; font-weight: 900; letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .preset-editor .a-grid { grid-template-columns: repeat(4, 1fr); }
+  .image-section { margin: 0 0 2rem; }
+  .image-section h3 { font-size: .7rem; letter-spacing: .12em; font-weight: 900; padding-bottom: .65rem; margin-bottom: .7rem; border-bottom: 1px solid var(--black); }
+  .image-slot { display: grid; grid-template-columns: 92px minmax(9rem, 1fr) auto; align-items: center; gap: .85rem; padding: .7rem 0; border-bottom: 1px solid rgba(5,5,5,.18); }
+  .image-slot:last-child { border-bottom: none; }
+  .image-slot img { width: 92px; height: 62px; object-fit: contain; background: var(--grey); }
+  .image-slot-copy { min-width: 0; }
+  .image-slot-label { font-size: .7rem; font-weight: 900; letter-spacing: .08em; display: block; }
+  .image-slot-id { font-size: .58rem; opacity: .56; letter-spacing: .06em; display: block; margin-top: .25rem; }
+  .image-slot-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .45rem; }
+  .image-slot-actions .btn { font-size: .56rem; padding: .52rem .64rem; }
+  .admin-subnote { max-width: 70ch; margin: -.15rem 0 1rem; font-size: .72rem; line-height: 1.55; }
+  .mirror-layers-admin { padding-top: .7rem; }
+  .mirror-layer-admin-list { border-top: 1px solid rgba(5,5,5,.18); }
+  .layer-position-fields { display: flex; gap: .55rem; margin-top: .55rem; }
+  .layer-position-fields label { display: flex; align-items: center; gap: .3rem; font-size: .55rem; font-weight: 800; letter-spacing: .08em; }
+  .layer-position-fields input { width: 4.4rem; padding: .35rem; border: 1px solid var(--black); font: 700 .7rem var(--font-sans); }
+  .weight-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.7rem; }
+  .weight-row label { flex: 1; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; }
+  .weight-row input { width: 90px; padding: 0.4rem; border: 1px solid var(--black); font-family: var(--font-sans); font-weight: 700; }
+  @media (max-width: 800px) { .a-grid, .preset-editor .a-grid { grid-template-columns: 1fr; } .image-slot { grid-template-columns: 78px 1fr; } .image-slot img { width:78px; height:54px; } .image-slot-actions { grid-column: 1 / -1; justify-content:flex-start; } }
+</style>
+</head>
+<body>
+<div class="admin">
+  <div class="admin-head">
+    <h1>PERCEPTION LAB — ADMIN</h1>
+    <a href="index.html">← BACK TO SITE</a>
+  </div>
+
+  <div class="admin-note">
+    Changes are stored in <strong>this browser's localStorage</strong> and apply to the site preview when you reload it.
+    They do <strong>not</strong> publish to a live website, do not synchronise across users or devices, and localStorage is not secure authentication.
+    A production deployment would require a backend with authentication, media storage and a database — kept intentionally separate from this static implementation.
+  </div>
+
+  <div class="admin-tabs" role="tablist">
+    <button class="is-active" data-tab="content" role="tab">CONTENT</button>
+    <button data-tab="positions" role="tab">TEST HEADING POSITION</button>
+    <button data-tab="images" role="tab">IMAGES &amp; PLACEHOLDERS</button>
+    <button data-tab="presets" role="tab">VISUAL PRESETS</button>
+    <button data-tab="anim" role="tab">ANIMATION</button>
+    <button data-tab="eval" role="tab">EVALUATION</button>
+    <button data-tab="manage" role="tab">SITE MANAGEMENT</button>
+  </div>
+
+  <!-- CONTENT -->
+  <section class="admin-panel is-active" id="tab-content">
+    <h2>WEBSITE CONTENT</h2>
+    <div class="a-grid" id="contentFields"></div>
+    <div class="a-actions">
+      <button class="btn" id="saveContentBtn">SAVE CHANGES</button>
+      <button class="btn btn--ghost" id="resetContentBtn">RESET TO DEFAULTS</button>
+    </div>
+    <p class="a-msg" id="contentMsg"></p>
+  </section>
+
+  <!-- TEST YOUR BRAND HEADING POSITION -->
+  <section class="admin-panel" id="tab-positions">
+    <h2>TEST YOUR BRAND — HEADING POSITION</h2>
+    <p class="fine-print" style="margin:-.65rem 0 1.25rem;max-width:65ch;">Move every Test Your Brand heading independently. Values are pixels from the original layout; keep changes small to protect the responsive design.</p>
+    <div id="testHeadingPositions"></div>
+    <div class="a-actions">
+      <button class="btn" id="saveHeadingPositionsBtn">SAVE HEADING POSITIONS</button>
+      <button class="btn btn--ghost" id="resetHeadingPositionsBtn">RESET POSITIONS</button>
+    </div>
+    <p class="a-msg" id="headingPositionsMsg"></p>
+  </section>
+
+  <!-- IMAGES -->
+  <section class="admin-panel" id="tab-images">
+    <h2>SECTION-WISE IMAGE CONTROL</h2>
+    <p class="fine-print" style="margin:-.65rem 0 1.25rem;max-width:70ch;">Every occurrence has its own slot. Replacing or removing one repeated campaign image does not alter any other occurrence. Uploaded files are kept only in this browser.</p>
+    <div id="galleryItems"></div>
+    <div class="a-actions">
+      <button class="btn" id="saveImagesBtn">SAVE IMAGE CHANGES</button>
+      <button class="btn btn--ghost" id="restoreAllImagesBtn">RESTORE ALL DEFAULT IMAGES</button>
+    </div>
+    <p class="a-msg" id="imagesMsg"></p>
+  </section>
+
+  <!-- PRESETS -->
+  <section class="admin-panel" id="tab-presets">
+    <h2>VISUAL PRESETS — FIVE PERCEPTIONS</h2>
+    <div id="presetEditors"></div>
+    <div class="a-actions">
+      <button class="btn" id="savePresetsBtn">SAVE PRESETS</button>
+    </div>
+    <p class="a-msg" id="presetsMsg"></p>
+  </section>
+
+  <!-- ANIMATION -->
+  <section class="admin-panel" id="tab-anim">
+    <h2>ANIMATION SETTINGS</h2>
+    <div class="a-grid" id="animFields"></div>
+    <div class="a-actions">
+      <button class="btn" id="saveAnimBtn">SAVE SETTINGS</button>
+    </div>
+    <p class="a-msg" id="animMsg"></p>
+  </section>
+
+  <!-- EVALUATION -->
+  <section class="admin-panel" id="tab-eval">
+    <h2>QUESTIONNAIRES &amp; EVALUATION</h2>
+    <h3 style="font-size:.75rem;letter-spacing:.12em;margin:1rem 0 .8rem;">DIMENSION WEIGHTS (must sum to 1.00)</h3>
+    <div id="weightRows"></div>
+    <div class="a-grid" id="evalFields" style="margin-top:1.5rem;"></div>
+    <div class="a-actions">
+      <button class="btn" id="saveEvalBtn">SAVE EVALUATION CONFIG</button>
+    </div>
+    <p class="a-msg" id="evalMsg"></p>
+  </section>
+
+  <!-- MANAGE -->
+  <section class="admin-panel" id="tab-manage">
+    <h2>SITE MANAGEMENT</h2>
+    <div class="a-actions" style="border:none;padding-top:0;">
+      <button class="btn btn--lime" id="exportBtn">EXPORT CONFIGURATION (JSON)</button>
+      <label class="btn btn--ghost" style="display:inline-block;cursor:pointer;">
+        IMPORT JSON <input type="file" id="importInput" accept="application/json,.json" hidden>
+      </label>
+      <button class="btn btn--ghost" id="wipeBtn">RESET ALL TO DEFAULTS</button>
+      <a class="btn" href="index.html" target="_blank" rel="noopener">PREVIEW SITE ↗</a>
+    </div>
+    <p class="a-msg" id="manageMsg"></p>
+  </section>
+</div>
+<script src="admin.js"></script>
+</body>
+</html>

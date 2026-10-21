@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perception Lab — What Are You Really Selling?</title>
+<meta name="description" content="An interactive experiment in advertising perception and visual persuasion.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ADVERTISING ARCHIVE PRELOADER (initial entry only) -->
+<div id="blackout" class="ad-preloader" aria-label="Loading advertising archive" aria-live="polite">
+  <div class="preloader-meta"><span>PERCEPTION LAB</span><span id="preloaderCount">00 / 00</span></div>
+  <div class="preloader-stage" id="preloaderStage" aria-hidden="true"></div>
+  <div class="preloader-center"><span class="preloader-percent" id="preloaderPercent">00</span><span class="preloader-word">LOADING ADVERTISEMENTS</span></div>
+  <div class="preloader-footer"><span>VISUAL ARCHIVE / INITIALISING</span><span>SCROLL TO QUESTION EVERYTHING</span></div>
+</div>
+
+<!-- Floating section navigator -->
+<nav class="section-orb" id="sectionOrb" aria-label="Section navigation">
+  <button class="section-orb-current" id="sectionOrbCurrent" type="button" aria-expanded="false" aria-controls="sectionOrbMenu">
+    <span class="section-orb-kicker">NOW VIEWING</span>
+    <span class="section-orb-label">HOME</span>
+    <span class="section-orb-chevron" aria-hidden="true">+</span>
+  </button>
+  <div class="section-orb-menu" id="sectionOrbMenu">
+    <a href="#top" data-orb-section="top">HOME</a>
+    <a href="#lab" data-orb-section="lab">PERCEPTION</a>
+    <a href="#mirror" data-orb-section="mirror">WHAT CHANGED</a>
+    <a href="#test" data-orb-section="test">TEST YOUR BRAND</a>
+    <a href="#publish" data-orb-section="publish">BEFORE YOU PUBLISH</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-collage" id="heroCollage" aria-hidden="true"></div>
+  <div class="hero-headline" id="heroHeadline">
+    <span class="hero-line hero-line--outline" id="heroLine1">WHAT ARE YOU</span>
+    <span class="hero-line hero-line--solid" id="heroLine2">SELLING?</span>
+  </div>
+  <p class="hero-hint" aria-hidden="true">SCROLL TO QUESTION EVERYTHING ↓</p>
+</header>
+
+<!-- ============ MARQUEE ============ -->
+<section class="marquee-section" aria-label="A product? A perception? Or both?">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</section>
+
+<!-- ============ 1. THE PERCEPTION LAB ============ -->
+<section class="lab section-yellow" id="lab">
+  <div class="section-label"><span data-content="lab.label"></span></div>
+  <h2 class="lab-headline">
+    <span class="lab-line lab-line--solid" data-content="lab.headlineA"></span>
+    <span class="lab-line lab-line--outline" data-content="lab.headlineB"></span>
+  </h2>
+  <div class="lab-grid">
+    <div class="lab-tiles" id="labTiles" role="group" aria-label="Perception tiles"></div>
+    <div class="lab-panel">
+      <p class="lab-desc" data-content="lab.description"></p>
+      <div class="lab-indicators" id="labIndicators"></div>
+      <p class="fine-print" data-content="lab.indicatorNote"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTING STATEMENT ============ -->
+<section class="testing-statement" id="testingStatement" aria-label="Testing principle">
+  <div class="testing-dots" aria-hidden="true">
+    <span class="testing-dot"></span><span class="testing-dot"></span><span class="testing-dot"></span><span class="testing-dot"></span><span class="testing-dot"></span><span class="testing-dot"></span>
+    <span class="testing-dot"></span><span class="testing-dot"></span><span class="testing-dot"></span><span class="testing-dot"></span><span class="testing-dot"></span><span class="testing-dot"></span>
+  </div>
+  <div class="testing-copy">
+    <p>Never stop testing and your advertising will never stop improving.</p>
+    <p>The most powerful element in advertising is the truth.</p>
+  </div>
+</section>
+
+<!-- ============ 3. THE BRANDING MIRROR ============ -->
+<section class="mirror section-cyan" id="mirror">
+  <div class="section-label"><span data-content="mirror.label"></span></div>
+  <h2 class="mirror-headline" data-content="mirror.headline"></h2>
+  <p class="mirror-desc" data-content="mirror.description"></p>
+
+  <div class="mirror-grid">
+    <div class="mirror-controls" id="mirrorControlsLeft" aria-label="Meaning-making devices, first group"></div>
+    <div class="mirror-preview-wrap">
+      <div class="mirror-preview" id="mirrorPreview">
+        <div class="mirror-preview-inner" id="mirrorPreviewInner" aria-label="Editable campaign composition">
+          <img class="mirror-img" id="mirrorImg" src="assets/mirror/brand-bottle.png" alt="Campaign bottle visual used in the branding mirror">
+          <h3 class="mirror-preview-headline" id="mirrorPreviewHeadline" contenteditable="true" spellcheck="false" aria-label="Editable headline">AURUM No. 04</h3>
+          <p class="mirror-preview-body" id="mirrorPreviewBody" contenteditable="true" spellcheck="false" aria-label="Editable body text"></p>
+          <p class="mirror-composer-tip" id="mirrorComposerTip">SELECT A LAYER · DRAG TO MOVE · CLICK TEXT TO EDIT</p>
+        </div>
+      </div>
+    </div>
+    <aside class="mirror-actions-panel" id="mirrorActionsPanel" aria-label="Composition actions">
+      <div class="mirror-mode-tabs" role="tablist" aria-label="Composition controls">
+        <button class="is-active" type="button" role="tab" aria-selected="true" data-mirror-mode="image">IMAGE</button>
+        <button type="button" role="tab" aria-selected="false" data-mirror-mode="text">TEXT</button>
+        <button type="button" role="tab" aria-selected="false" data-mirror-mode="style">STYLE</button>
+      </div>
+      <div class="mirror-image-add-panel" id="mirrorImageAddPanel">
+        <label class="mirror-add-image" for="mirrorLayerUpload">
+          <input type="file" id="mirrorLayerUpload" accept="image/png,image/jpeg,image/webp" multiple hidden>
+          ADD IMAGE +
+        </label>
+      </div>
+      <div class="mirror-editor-actions" aria-label="Campaign composition actions">
+        <button class="btn btn--small btn--ghost" id="mirrorHeadlineDown" type="button">HEADLINE −</button>
+        <button class="btn btn--small btn--ghost" id="mirrorHeadlineUp" type="button">HEADLINE +</button>
+        <button class="btn btn--small btn--ghost" id="mirrorTextDown" type="button">TITLE −</button>
+        <button class="btn btn--small btn--ghost" id="mirrorTextUp" type="button">TITLE +</button>
+      </div>
+      <section class="mirror-layer-editor" aria-label="Composition layers">
+        <div class="mirror-layer-editor-head"><span>LAYERS</span><strong id="mirrorSelectedLabel">MAIN IMAGE</strong></div>
+        <div class="mirror-layer-list" id="mirrorLayerList" role="listbox" aria-label="Select a composition layer"></div>
+        <div class="mirror-layer-actions">
+          <button class="btn btn--small btn--ghost" id="mirrorUndo" type="button">UNDO</button>
+          <button class="btn btn--small btn--ghost" id="mirrorRedo" type="button">REDO</button>
+          <button class="btn btn--small btn--ghost" id="mirrorDuplicateLayer" type="button">DUPLICATE</button>
+          <button class="btn btn--small btn--ghost" id="mirrorDeleteLayer" type="button">DELETE</button>
+          <button class="btn btn--small btn--ghost" id="mirrorResetLayer" type="button">RESET LAYER</button>
+        </div>
+      </section>
+      <button class="btn btn--small" id="mirrorReset" type="button">RESET COMPOSITION</button>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ SCROLLING GALLERY ============ -->
+<section class="gallery" id="gallery" aria-label="Advertising gallery">
+  <div class="gallery-inner" id="galleryInner"></div>
+</section>
+
+<!-- ============ 4. TEST YOUR BRAND ============ -->
+<section class="test section-white" id="test">
+  <div class="section-label"><span data-content="test.label"></span></div>
+  <h2 class="test-headline test-positionable" id="testHeading">
+    <span class="test-line test-line--solid" data-content="test.headlineA"></span>
+    <span class="test-line test-line--outline" data-content="test.headlineB"></span>
+  </h2>
+
+  <div class="wizard" id="wizard">
+    <ol class="wizard-steps" id="wizardSteps"></ol>
+
+    <!-- STEP A: DEFINE -->
+    <fieldset class="wizard-step" id="stepA" data-step="0">
+      <legend class="test-positionable" id="testHeadingDefine">What are you selling?</legend>
+      <div class="upload-area" id="uploadArea" tabindex="0" role="button" aria-label="Upload a campaign image">
+        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" hidden>
+        <div class="upload-empty" id="uploadEmpty">
+          <p class="upload-arrow" aria-hidden="true">↑</p>
+          <p>DROP OR SELECT A<br>CAMPAIGN IMAGE</p>
+          <p class="fine-print">PNG, JPEG or WebP · max 5 MB</p>
+        </div>
+        <div class="upload-preview" id="uploadPreview" hidden>
+          <img id="uploadPreviewImg" alt="Uploaded campaign preview">
+          <p class="upload-filename" id="uploadFilename"></p>
+          <div class="upload-actions">
+            <button type="button" class="btn btn--small" id="replaceImageBtn">REPLACE</button>
+            <button type="button" class="btn btn--small btn--ghost" id="removeImageBtn">REMOVE</button>
+          </div>
+        </div>
+      </div>
+      <p class="upload-error" id="uploadError" role="alert" hidden></p>
+      <div class="field-grid">
+        <label class="field">PRODUCT OR SERVICE NAME
+          <input type="text" id="fName" placeholder="e.g. AURUM No. 04" autocomplete="off">
+        </label>
+        <label class="field">PRODUCT CATEGORY
+          <input type="text" id="fCategory" placeholder="e.g. Fragrance" autocomplete="off">
+        </label>
+        <label class="field field--wide">SHORT PRODUCT DESCRIPTION
+          <textarea id="fDesc" rows="2" placeholder="What is it, in one honest sentence?"></textarea>
+        </label>
+        <label class="field">ACTUAL PRICE (OPTIONAL)
+          <input type="number" id="fPrice" min="0" step="1" placeholder="e.g. 4800">
+        </label>
+        <label class="field">KEY SUPPORTED QUALITIES
+          <input type="text" id="fQualities" placeholder="e.g. long-lasting, vegan" autocomplete="off">
+        </label>
+      </div>
+      <div class="wizard-nav">
+        <span></span><button type="button" class="btn" data-goto="1">CONTINUE</button>
+      </div>
+    </fieldset>
+
+    <!-- STEP B: INTENDED PERCEPTION -->
+    <fieldset class="wizard-step" id="stepB" data-step="1" hidden>
+      <legend class="test-positionable" id="testHeadingIntended">Intended perception</legend>
+      <p class="step-hint">Select every quality your visual language communicates.</p>
+      <div class="chip-group" id="perceptionChips" role="group" aria-label="Intended perceptions"></div>
+      <div class="wizard-nav">
+        <button type="button" class="btn btn--ghost" data-goto="0">BACK</button>
+        <button type="button" class="btn" data-goto="2">CONTINUE</button>
+      </div>
+    </fieldset>
+
+    <!-- STEP C: PRODUCT REALITY -->
+    <fieldset class="wizard-step" id="stepC" data-step="2" hidden>
+      <legend class="test-positionable" id="testHeadingReality">Product reality</legend>
+      <p class="step-hint">Evaluate what the product actually is — be honest. Missing evidence triggers an uncertainty warning, never an accusation.</p>
+      <div class="field-grid">
+        <label class="field">PRICE POSITION
+          <select id="rPrice"><option value="">SELECT…</option></select>
+        </label>
+        <label class="field">MATERIALS
+          <select id="rMaterials"><option value="">SELECT…</option></select>
+        </label>
+        <label class="field">QUALITY INDICATORS
+          <select id="rQuality"><option value="">SELECT…</option></select>
+        </label>
+        <label class="field">PRODUCTION
+          <select id="rProduction"><option value="">SELECT…</option></select>
+        </label>
+        <label class="field">AVAILABILITY
+          <select id="rAvailability"><option value="">SELECT…</option></select>
+        </label>
+        <label class="field">PRODUCT CLAIMS MADE
+          <select id="rClaims"><option value="">SELECT…</option></select>
+        </label>
+        <label class="field field--wide">LIMITATIONS THAT MIGHT AFFECT THE PROMISE
+          <textarea id="rLimitations" rows="2" placeholder="e.g. scent lasts ~4 hours, not 12"></textarea>
+        </label>
+      </div>
+      <div class="wizard-nav">
+        <button type="button" class="btn btn--ghost" data-goto="1">BACK</button>
+        <button type="button" class="btn" data-goto="3">CONTINUE</button>
+      </div>
+    </fieldset>
+
+    <!-- STEP D: COMPARE -->
+    <fieldset class="wizard-step" id="stepD" data-step="3" hidden>
+      <legend class="test-positionable" id="testHeadingCompare">Compare</legend>
+      <p class="step-hint">Intended perception vs product reality.</p>
+      <div class="compare-grid">
+        <div class="compare-col">
+          <h3>INTENDED PERCEPTION</h3>
+          <div class="compare-chips" id="cmpIntended"></div>
+          <div class="cmp-image-wrap" id="cmpImageWrap" hidden>
+            <img id="cmpImage" alt="Campaign image being evaluated">
+          </div>
+        </div>
+        <div class="compare-col">
+          <h3>PRODUCT REALITY</h3>
+          <ul class="cmp-reality" id="cmpReality"></ul>
+        </div>
+      </div>
+      <div class="wizard-nav">
+        <div class="wizard-nav-left">
+          <button type="button" class="btn btn--ghost" data-goto="2">BACK</button>
+          <button type="button" class="btn btn--ghost" id="startOverBtn">START OVER</button>
+        </div>
+        <button type="button" class="btn btn--lime" id="evaluateBtn">GENERATE COMPARISON</button>
+      </div>
+    </fieldset>
+
+    <!-- STEP E: RESULT -->
+    <fieldset class="wizard-step" id="stepE" data-step="4" hidden>
+      <legend class="test-positionable" id="testHeadingResult">Evaluation result</legend>
+      <div class="result-layout">
+        <div class="result-gauge-wrap">
+          <div class="result-gauge" id="resultGauge">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="gauge-bg" cx="60" cy="60" r="52"></circle>
+              <circle class="gauge-fill" id="gaugeFill" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <div class="gauge-number"><span id="gaugeValue">0</span><small>/100</small></div>
+          </div>
+          <h3 class="result-label" id="resultLabel">—</h3>
+          <p class="fine-print">Preliminary self-assessment — not a legal determination or verified consumer study.</p>
+        </div>
+        <div class="result-detail">
+          <div id="dimensionBars"></div>
+          <div class="result-notes" id="resultNotes"></div>
+          <div class="result-recs">
+            <h4>RECOMMENDATIONS</h4>
+            <ul id="resultRecs"></ul>
+          </div>
+          <div class="wizard-nav">
+            <button type="button" class="btn btn--ghost" data-goto="3">BACK TO COMPARE</button>
+            <button type="button" class="btn" id="toPublishBtn">CONTINUE TO PUBLISH CHECKLIST</button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<!-- ============ 5. BEFORE YOU PUBLISH ============ -->
+<section class="publish section-lime" id="publish">
+  <div class="section-label"><span data-content="publish.label"></span></div>
+  <h2 class="publish-headline">
+    <span class="publish-line publish-line--solid" data-content="publish.headlineA"></span>
+    <span class="publish-line publish-line--outline" data-content="publish.headlineB"></span>
+  </h2>
+  <div class="checklist" id="checklist"></div>
+  <div class="publish-panel" id="publishPanel">
+    <h3 id="publishVerdict">AWAITING ANSWERS</h3>
+    <p id="publishSummary">Answer the checklist questions to receive a preliminary assessment.</p>
+    <ul class="publish-warnings" id="publishWarnings"></ul>
+    <div class="publish-actions">
+      <button type="button" class="btn btn--ghost" id="reviewAnswersBtn">REVIEW ANSWERS</button>
+      <button type="button" class="btn btn--ghost" id="resetChecklistBtn">RESET CHECKLIST</button>
+      <button type="button" class="btn" id="backToTestBtn">RETURN TO CAMPAIGN EVALUATION</button>
+      <button type="button" class="btn btn--lime" id="summaryBtn">GENERATE SUMMARY</button>
+    </div>
+  </div>
+  <div class="summary-box" id="summaryBox" hidden>
+    <h4>SESSION SUMMARY</h4>
+    <pre id="summaryText"></pre>
+    <div class="publish-actions">
+      <button type="button" class="btn btn--small" id="copySummaryBtn">COPY SUMMARY</button>
+      <button type="button" class="btn btn--small btn--ghost" onclick="window.print()">PRINT</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL STATEMENT ============ -->
+<section class="final" id="final">
+  <div class="final-tiles" id="finalTiles" aria-hidden="true"></div>
+  <h2 class="final-headline" id="finalHeadline">
+    <span class="final-line" data-line="1" data-content="final.line1"></span>
+    <span class="final-line" data-line="2" data-content="final.line2"></span>
+    <span class="final-line final-line--lime" data-line="3" data-content="final.line3"></span>
+    <span class="final-line" data-line="4" data-content="final.line4"></span>
+  </h2>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <p class="footer-logo">PERCEPTION LAB</p>
+      <p class="footer-desc" data-content="site.tagline"></p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="#lab">THE PERCEPTION LAB</a>
+      <a href="#mirror">BRANDING MIRROR</a>
+      <a href="#test">TEST YOUR BRAND</a>
+      <a href="#publish">BEFORE YOU PUBLISH</a>
+    </nav>
+    <div class="footer-admin">
+      <a href="admin.html">ADMIN INTERFACE →</a>
+      <p class="fine-print" data-content="site.footerNote"></p>
+      <p class="fine-print" data-content="site.copyright"></p>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
