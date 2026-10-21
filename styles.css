@@ -2130,4 +2130,29 @@ body.is-loading { overflow: hidden; }
   #lab .lab-tile-label {
     z-index: 5;
   }
+}/* Add at the END of styles.css */
+
+/* Hide mobile drag instructions */
+@media (max-width: 760px) {
+  #mirrorComposerTip {
+    display: none !important;
+  }
+
+  .mirror-preview-wrap::after,
+  .mirror-preview-inner::after {
+    content: none !important;
+    display: none !important;
+  }
+}
+
+/* Keep perception tiles and labels stationary during page reveals */
+#lab .lab-grid.reveal,
+#lab .lab-tiles,
+#lab .lab-tile,
+#lab .lab-tile-label {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
 }
