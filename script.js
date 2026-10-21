@@ -833,16 +833,7 @@ function initMirror() {
   }
   const mirrorLayerUpload = $('#mirrorLayerUpload');
   const addMirrorLayers = files => {
-    const remaining = Math.max(0, 8 - (state.mirror.layers || []).length);
-    [...(files || [])]
-      .filter(file => file && /^image\/(png|jpe?g|webp)$/i.test(file.type))
-      .slice(0, remaining)
-      .forEach(file => {
-        const reader = new FileReader();
-        reader.onload = () => addMirrorLayer(reader.result);
-        reader.readAsDataURL(file);
-      });
-  };
+    if (mirrorLayerUpload) {
   if (mirrorLayerUpload) {
     mirrorLayerUpload.addEventListener('change', event => {
       addMirrorLayers(event.target.files);

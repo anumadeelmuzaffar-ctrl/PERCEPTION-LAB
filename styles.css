@@ -2156,3 +2156,8 @@ body.is-loading { overflow: hidden; }
   animation: none !important;
   transition: none !important;
 }
+@media (max-width: 760px) {
+  #mirror .mirror-control-group-label:first-of-type {
+    display: none !important;
+  }
+}
