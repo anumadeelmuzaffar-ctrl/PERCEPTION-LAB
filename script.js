@@ -831,25 +831,60 @@ function initMirror() {
       loadMirrorPng(event.dataTransfer && event.dataTransfer.files[0]);
     });
   }
-  const mirrorLayerUpload = $('#mirrorLayerUpload');
+    const mirrorLayerUpload = $('#mirrorLayerUpload');
+
   const addMirrorLayers = files => {
-    if (mirrorLayerUpload) {
+    const file = [...(files || [])].find(file =>
+      /^image\/(png|jpe?g|webp)$/i.test(file.type)
+    );
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      clearMirrorLayers(false);
+
+      state.mirror.imageSrc = reader.result;
+      state.mirror.originalImageSrc = reader.result;
+
+      const image = $('#mirrorImg');
+      image.src = reader.result;
+      image.hidden = false;
+      delete image.dataset.renderKey;
+
+      state.mirror.layout = state.mirror.layout || {};
+      state.mirror.layout.mirrorImg = { x: 0, y: 0 };
+
+      applyMirrorDragPosition('mirrorImg', { x: 0, y: 0 });
+      applyMirror();
+      setMirrorSelection('mirrorImg', 'image');
+      recordMirrorHistory();
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   if (mirrorLayerUpload) {
     mirrorLayerUpload.addEventListener('change', event => {
       addMirrorLayers(event.target.files);
       event.target.value = '';
     });
   }
+
   $('#mirrorClearLayers')?.addEventListener('click', clearMirrorLayers);
+
   initMirrorCanvasDrag();
-  state.mirror.layers.forEach(layer => addMirrorLayer(layer.src, layer));
+
+  state.mirror.layers.forEach(layer => {
+    addMirrorLayer(layer.src, layer);
+  });
+
   setMirrorMode('image');
   setMirrorSelection('mirrorImg', 'image');
   recordMirrorHistory();
-
   applyMirror();
 }
-
 function applyMirror() {
   const m = state.mirror;
   const pv = $('#mirrorPreview');
