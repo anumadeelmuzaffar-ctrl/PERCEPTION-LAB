@@ -561,7 +561,9 @@ function initLab() {
     // Mobile has no hover. A tap opens exactly one perception visual and
     // exposes its compact readout; a second tap closes it again.
     el.addEventListener('click', () => {
-      if (!window.matchMedia('(hover: none)').matches) return;
+  const mobile = window.matchMedia('(max-width: 760px)').matches;
+  const touch = window.matchMedia('(hover: none)').matches;
+ if (!mobile && !touch) return;
       const wasOpenedByTap = el.dataset.tapOpen === 'true';
       $$('.lab-tile', wrap).forEach(tile => {
         tile.classList.remove('is-expanded');

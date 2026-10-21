@@ -2072,3 +2072,62 @@ body.is-loading { overflow: hidden; }
 #mirror[data-mirror-mode="style"] .mcontrol:not([data-control-key="bg"]):not([data-control-key="removeBg"]):not([data-control-key="textColor"]):not([data-control-key="sat"]):not([data-control-key="hue"]):not([data-control-key="contrast"]):not([data-control-key="bright"]) { display: none !important; }
 #mirror[data-mirror-mode="text"] .mirror-control-group-label,
 #mirror[data-mirror-mode="style"] .mirror-control-group-label { display: none !important; }
+@media (max-width: 760px) {
+  #lab .lab-tiles {
+    display: flex !important;
+    width: 100%;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 8px 0 14px;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #lab .lab-tile:nth-child(n) {
+    position: relative;
+    flex: 0 0 72%;
+    width: 72%;
+    height: 340px;
+    min-height: 0;
+    overflow: hidden;
+    scroll-snap-align: center;
+    border: 0;
+    border-radius: 8px;
+  }
+
+  #lab .lab-tile .lab-tile-img,
+  #lab .lab-tile.is-expanded .lab-tile-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  #lab .lab-tile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain !important;
+    transform: none !important;
+  }
+
+  #lab .lab-tile-readout {
+    display: grid;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 250ms ease;
+  }
+
+  #lab .lab-tile.is-expanded .lab-tile-readout {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  #lab .lab-tile-label {
+    z-index: 5;
+  }
+}
